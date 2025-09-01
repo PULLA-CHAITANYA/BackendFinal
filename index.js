@@ -10,6 +10,7 @@ import beneficiaryRoutes from "./routes/beneficiary.js";
 import claimsRoutes from "./routes/claims.js";
 import fraudClusterRoutes from "./routes/fraudCluster.js";
 
+
 import path from "path";
 import { fileURLToPath } from 'url';
 
@@ -19,7 +20,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: path.join(__dirname, '.env') });
 
 const app = express();
-app.use(cors({ origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176"], credentials: false }));
+app.use(cors({ origin: ["https://nice-forest-0c9364310.1.azurestaticapps.net","http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://localhost:5176"], credentials: false }));
 app.use(express.json());
 
 app.use("/api", claimsRoutes);
