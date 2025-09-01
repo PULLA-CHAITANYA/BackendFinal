@@ -30,10 +30,20 @@ app.use(
       "http://localhost:5175",
       "http://localhost:5176",
     ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true, // ✅ must be true
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // must be true for cookies/tokens
   })
 );
+
+// ✅ Explicitly handle preflight requests
+app.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", req.headers.origin);
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  return res.sendStatus(200);
+});
 
 app.use(express.json());
 
