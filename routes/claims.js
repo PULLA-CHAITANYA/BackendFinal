@@ -102,6 +102,7 @@ router.post('/submit', auth('provider'), async (req, res) => {
 
     // Insert only into NewClaims
     const newResult = await newClaims.insertOne(newClaimDoc);
+     await existingClaims.insertOne(newClaimDoc);
     console.log('NewClaims document inserted:', newResult.insertedId);
 
     // Insert into filtered collection (using MONGO_URI2)
@@ -206,6 +207,7 @@ router.post('/submit-bulk', auth('provider'), async (req, res) => {
 
   const opts = { ordered: false };
   await newClaims.insertMany(cleaned, opts);
+   await existingClaims.insertMany(cleaned, opts);
 
   res.json({ inserted: cleaned.length });
   } catch (e) {
